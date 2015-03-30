@@ -62,5 +62,11 @@ namespace SpaceXSimCSharpTest
             missionPayload = null;
         }
 
+        public void FillTanks()
+        {
+            stage1.Fill();
+            stage2.Fill();
+        }
+
     }
 }

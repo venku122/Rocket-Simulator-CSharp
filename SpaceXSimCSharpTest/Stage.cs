@@ -19,6 +19,8 @@ namespace SpaceXSimCSharpTest
         ControlSystem[] stageControl;
 
         const double RADIUS = 1.83;
+        const double RP1FillRate = 10;
+        const double LO2FillRate = 25;
 
         Stage_Type type;
 
@@ -54,7 +56,14 @@ namespace SpaceXSimCSharpTest
 
         public void Fill()
         {
-
+            while(kerosene.FilledVolume<kerosene.MaxVolume)
+            {
+                kerosene.Fill(RP1FillRate);
+            }
+            while (oxygen.FilledVolume < oxygen.MaxVolume)
+            {
+                oxygen.Fill(LO2FillRate);
+            }
         }
     }
 }
