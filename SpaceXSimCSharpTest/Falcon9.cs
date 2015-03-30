@@ -24,6 +24,16 @@ namespace SpaceXSimCSharpTest
         {
             get { return mission; }
         }
+
+        public Stage Stage1
+        {
+            get { return stage1; }
+        }
+
+        public Stage Stage2
+        {
+            get { return stage2; }
+        }
         public Falcon9(string n, string m)
         {
 
@@ -36,7 +46,7 @@ namespace SpaceXSimCSharpTest
             mission = m;
         }
 
-        public void LoadPayoad(Payload p)
+        public void LoadPayload(Payload p)
         {
             missionPayload = p;
             Console.WriteLine(missionPayload.Name+ " has been loaded onto " + this.name);
