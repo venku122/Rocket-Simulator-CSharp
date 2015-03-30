@@ -8,5 +8,8 @@ namespace SpaceXSimCSharpTest
 {
     class Merlin
     {
+        double thrust;
+        double chamberPressure;
+        double iSp;
     }
 }
