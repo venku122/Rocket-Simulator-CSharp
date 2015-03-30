@@ -8,13 +8,16 @@ namespace SpaceXSimCSharpTest
 {
     class Falcon9
     {
+        #region Fields
         Stage stage1;
         Stage stage2;
         Payload missionPayload;
 
         string name;
         string mission;
+        #endregion
 
+        #region Properties
         public string Name
         {
             get { return name; }
@@ -34,6 +37,7 @@ namespace SpaceXSimCSharpTest
         {
             get { return stage2; }
         }
+        #endregion
         public Falcon9(string n, string m)
         {
 

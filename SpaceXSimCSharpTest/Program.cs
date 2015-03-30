@@ -31,6 +31,8 @@ namespace SpaceXSimCSharpTest
                         rocket.LoadPayload(new Payload(10, "Mass Simulator"));
                         rocket.Stage1.Kerosene.Fill(50);
                         rocket.Stage1.Oxygen.Fill(50);
+
+                        run = false;
                         break;
                     case Flight_State.Launch:
                         break;
