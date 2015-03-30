@@ -12,6 +12,10 @@ namespace SpaceXSimCSharpTest
     };
     class Tank
     {
+
+        //1.556 lox to rp1 first stage
+        //1.586 lox to rp1 second stage
+
         const double RP1DENSITY = 915;
         const double LO2DENSITY = 1141;
 
