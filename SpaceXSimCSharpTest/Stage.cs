@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpaceXSimCSharpTest
 {
@@ -54,15 +55,28 @@ namespace SpaceXSimCSharpTest
 
         }
 
-        public void Fill()
+        public void FillThreaded()
         {
-            while(kerosene.FilledVolume<kerosene.MaxVolume)
-            {
-                kerosene.Fill(RP1FillRate);
-            }
+            Thread fill1 = new Thread(this.FillLO2);
+            Thread fill2 = new Thread(this.FillRP1);
+            fill1.Start();
+            fill2.Start();
+
+        }
+
+        private void FillLO2()
+        {
             while (oxygen.FilledVolume < oxygen.MaxVolume)
             {
                 oxygen.Fill(LO2FillRate);
+            }
+        }
+
+        private void FillRP1()
+        {
+            while (kerosene.FilledVolume < kerosene.MaxVolume)
+            {
+                kerosene.Fill(RP1FillRate);
             }
         }
     }

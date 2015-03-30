@@ -64,8 +64,8 @@ namespace SpaceXSimCSharpTest
 
         public void FillTanks()
         {
-            stage1.Fill();
-            stage2.Fill();
+            stage1.FillThreaded();
+            stage2.FillThreaded();
         }
 
     }

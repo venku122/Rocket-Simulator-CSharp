@@ -62,7 +62,7 @@ namespace SpaceXSimCSharpTest
             {
                 filledVolume += v;
             }
-            Console.WriteLine("Filled Volume: " + FilledVolume + " Max Volume: " + MaxVolume + " Mass: " + Mass);
+            Console.WriteLine("Filled Volume: " + FilledVolume + " Max Volume: " + MaxVolume + " Mass: " + Mass + type.ToString());
             Update();
 
         }
