@@ -16,7 +16,7 @@ namespace SpaceXSimCSharpTest
             Console.WriteLine(rocket.Mission);
             rocket.LoadPayoad(new Payload(10, "Mass Simulator"));
             rocket.UnloadPayload();
-            Tank test = new Tank(20, 3.66, Fuel_Type.RP1);
+            Tank test = new Tank(13.88, 1.83, Fuel_Type.RP1);
 
             Console.WriteLine("Filled Volume: " + test.FilledVolume + " Max Volume: " + test.MaxVolume + " Mass: " + test.Mass);
             test.Fill(5);

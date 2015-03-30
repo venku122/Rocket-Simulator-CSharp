@@ -18,7 +18,7 @@ namespace SpaceXSimCSharpTest
         Tank oxygen;
         ControlSystem[] stageControl;
 
-        const double RADIUS = 3.66;
+        const double RADIUS = 1.83;
 
         Stage_Type type;
 
