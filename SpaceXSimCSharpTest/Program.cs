@@ -16,23 +16,27 @@ namespace SpaceXSimCSharpTest
     {
         static void Main(string[] args)
         {
+            bool run = true;
             Flight_State state=Flight_State.Prelaunch;
-            switch(state)
+            while (run)
             {
-                case Flight_State.Prelaunch:
+                switch (state)
+                {
+                    case Flight_State.Prelaunch:
 
-                     Falcon9 rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
+                        Falcon9 rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
 
-                     Console.WriteLine(rocket.Name);
-                     Console.WriteLine(rocket.Mission);
-                     rocket.LoadPayload(new Payload(10, "Mass Simulator"));
-                     rocket.Stage1.Kerosene.Fill(50);
-                     rocket.Stage1.Oxygen.Fill(50);
-                    break;
-                case Flight_State.Launch:
-                    break;
-                case Flight_State.Flight:
-                    break;
+                        Console.WriteLine(rocket.Name);
+                        Console.WriteLine(rocket.Mission);
+                        rocket.LoadPayload(new Payload(10, "Mass Simulator"));
+                        rocket.Stage1.Kerosene.Fill(50);
+                        rocket.Stage1.Oxygen.Fill(50);
+                        break;
+                    case Flight_State.Launch:
+                        break;
+                    case Flight_State.Flight:
+                        break;
+                }
             }
  
             
