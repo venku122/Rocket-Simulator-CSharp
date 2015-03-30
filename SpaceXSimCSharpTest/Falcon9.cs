@@ -28,12 +28,24 @@ namespace SpaceXSimCSharpTest
         {
 
 
-            stage1 = new Stage();
-            stage2 = new Stage();
-            missionPayload = new Payload();
+            stage1 = new Stage(Stage_Type.firstStage);
+            stage2 = new Stage(Stage_Type.secondStage);
+            
 
             name = n;
             mission = m;
+        }
+
+        public void LoadPayoad(Payload p)
+        {
+            missionPayload = p;
+            Console.WriteLine(missionPayload.Name+ " has been loaded onto " + this.name);
+        }
+
+        public void UnloadPayload()
+        {
+            Console.WriteLine(missionPayload.Name + " has been unloaded from " + this.name);
+            missionPayload = null;
         }
 
     }

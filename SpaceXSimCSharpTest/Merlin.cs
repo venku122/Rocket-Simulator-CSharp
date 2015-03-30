@@ -10,6 +10,6 @@ namespace SpaceXSimCSharpTest
     {
         double thrust;
         double chamberPressure;
-        double iSp;
+        double ISP;
     }
 }

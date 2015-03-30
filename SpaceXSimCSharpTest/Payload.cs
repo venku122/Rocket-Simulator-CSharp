@@ -8,7 +8,18 @@ namespace SpaceXSimCSharpTest
 {
     class Payload
     {
-        double mas;
+        double mass;
         String name;
+
+        public String Name
+        {
+            get { return name; }
+        }
+
+        public Payload(double m, String s)
+        {
+            mass = m;
+            name = s;
+        }
     }
 }
