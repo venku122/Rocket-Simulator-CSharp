@@ -37,7 +37,9 @@ namespace SpaceXSimCSharpTest
                         rocket.LoadPayload(new Payload(10, "Mass Simulator"));
 
                         rocket.FillTanks();
-
+                        Console.WriteLine("stage 1 mass: " + (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass));
+                        Console.WriteLine("stage 2 mass: " + (rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass));
+                        Console.WriteLine("total mass: " + (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass));
                         run = false;
                         #endregion 
                         break;

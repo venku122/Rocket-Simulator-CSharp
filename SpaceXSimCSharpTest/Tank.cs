@@ -46,6 +46,7 @@ namespace SpaceXSimCSharpTest
         }
         #endregion
 
+        #region Constructor
         public Tank(double l, double r, Fuel_Type ft)
         {
             length = l;
@@ -54,8 +55,9 @@ namespace SpaceXSimCSharpTest
             maxVolume = Math.PI * (radius * radius) * length;
             type = ft;
             mass += 100;
-            
         }
+        #endregion
+
         #region Methods
         /// <summary>
         /// Fills the fuel tank with fuel

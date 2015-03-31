@@ -51,6 +51,8 @@ namespace SpaceXSimCSharpTest
             get { return stage2; }
         }
         #endregion
+
+        #region Constructor
         /// <summary>
         /// Creates a new Falcon 9
         /// </summary>
@@ -68,14 +70,16 @@ namespace SpaceXSimCSharpTest
             name = n;
             mission = m;
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Loads a payload onto the rocket
         /// </summary>
         /// <param name="p">Payload object to be loaded</param>
         public void LoadPayload(Payload p)
         {
-            if (missionPayload != null)
+            if (missionPayload == null)
             {
                 missionPayload = p;
                 Console.WriteLine(missionPayload.Name + " has been loaded onto " + this.name);
@@ -103,6 +107,6 @@ namespace SpaceXSimCSharpTest
             stage1.FillThreaded();
             stage2.FillThreaded();
         }
-
+        #endregion
     }
 }
