@@ -6,27 +6,53 @@ using System.Threading.Tasks;
 
 namespace SpaceXSimCSharpTest
 {
+    #region FlightStateEnum
+    /// <summary>
+    /// List of stages of flight
+    /// </summary>
+    enum Flight_State
+    {
+        Prelaunch,
+        Launch,
+        Flight
+    };
+    #endregion
     class Program
     {
         static void Main(string[] args)
         {
-            Falcon9 rocket = new Falcon9("Falcon 9 1.0", "Test Rocket");
-
-            Console.WriteLine(rocket.Name);
-            Console.WriteLine(rocket.Mission);
-            rocket.LoadPayoad(new Payload(10, "Mass Simulator"));
-            rocket.UnloadPayload();
-            Tank test = new Tank(13.88, 1.83, Fuel_Type.RP1);
-
-            Console.WriteLine("Filled Volume: " + test.FilledVolume + " Max Volume: " + test.MaxVolume + " Mass: " + test.Mass);
-            test.Fill(5);
-            Console.WriteLine("Filled Volume: " + test.FilledVolume + " Max Volume: " + test.MaxVolume + " Mass: " + test.Mass);
-
-            while(test.FilledVolume<test.MaxVolume)
+            bool run = true;
+            Flight_State state=Flight_State.Prelaunch;
+            while (run)
             {
-             test.Fill(10);
-             Console.WriteLine("Filled Volume: " + test.FilledVolume + " Max Volume: " + test.MaxVolume + " Mass: " + test.Mass);
+                #region FiniteStateMachine
+                switch (state)
+                {
+                    case Flight_State.Prelaunch:
+                        #region Prelaunch
+                        Falcon9 rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
+
+                        Console.WriteLine(rocket.Name);
+                        Console.WriteLine(rocket.Mission);
+                        rocket.LoadPayload(new Payload(10, "Mass Simulator"));
+
+                        rocket.FillTanks();
+                        Console.WriteLine("stage 1 mass: " + (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass));
+                        Console.WriteLine("stage 2 mass: " + (rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass));
+                        Console.WriteLine("total mass: " + (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass));
+                        run = false;
+                        #endregion 
+                        break;
+                    case Flight_State.Launch:
+                        break;
+                    case Flight_State.Flight:
+                        break;
+                }
+                #endregion
             }
+ 
+            
+
 
             
         }
