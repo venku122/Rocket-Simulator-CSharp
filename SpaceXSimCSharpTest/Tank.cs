@@ -6,22 +6,30 @@ using System.Threading.Tasks;
 
 namespace SpaceXSimCSharpTest
 {
+    #region FuelTypeEnum
     public enum Fuel_Type
     {
         RP1, LO2
     };
+    #endregion
+
     class Tank
     {
+        #region FuelDensityConstants
         const double RP1DENSITY = 915;
         const double LO2DENSITY = 1141;
+        #endregion
 
+        #region Fields
         double length;
         double radius;
         double maxVolume;
         double filledVolume;
         double mass;
         Fuel_Type type;
+        #endregion
 
+        #region Properties
         public double FilledVolume
         {
             get { return filledVolume; }
@@ -36,6 +44,8 @@ namespace SpaceXSimCSharpTest
         {
             get { return mass; }
         }
+        #endregion
+
         public Tank(double l, double r, Fuel_Type ft)
         {
             length = l;
@@ -46,7 +56,11 @@ namespace SpaceXSimCSharpTest
             mass += 100;
             
         }
-
+        #region Methods
+        /// <summary>
+        /// Fills the fuel tank with fuel
+        /// </summary>
+        /// <param name="v">volume of fuel to add to the tank</param>
         public void Fill(double v)
         {
             if (v < 0)
@@ -62,11 +76,15 @@ namespace SpaceXSimCSharpTest
             {
                 filledVolume += v;
             }
-            Console.WriteLine("Filled Volume: " + FilledVolume + " Max Volume: " + MaxVolume + " Mass: " + Mass + type.ToString());
+            //Debug Print statement
+            Console.WriteLine("Filled Volume: " + String.Format("{0:0.000}", filledVolume) + " Max Volume: " + String.Format("{0:0.000}", MaxVolume) + " Mass: " + String.Format("{0:0.000}", mass) + type.ToString());
+            //Updates the mass of the tank
             Update();
 
         }
-
+        /// <summary>
+        /// Based on fuel type, Updates the tank mass based on density and fuel amount
+        /// </summary>
         private void Update()
         {
             switch(type)
@@ -79,5 +97,6 @@ namespace SpaceXSimCSharpTest
                     break;
             }
         }
+        #endregion
     }
 }
