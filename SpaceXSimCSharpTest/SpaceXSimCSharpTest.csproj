@@ -48,6 +48,7 @@
     <Compile Include="Payload.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimConstants.cs" />
     <Compile Include="Stage.cs" />
     <Compile Include="Tank.cs" />
   </ItemGroup>

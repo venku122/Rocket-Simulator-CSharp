@@ -69,6 +69,9 @@ namespace SpaceXSimCSharpTest
 
             name = n;
             mission = m;
+
+            Console.WriteLine(Name);
+            Console.WriteLine(Mission);
         }
         #endregion
 

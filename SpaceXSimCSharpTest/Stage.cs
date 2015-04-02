@@ -7,12 +7,7 @@ using System.Threading;
 
 namespace SpaceXSimCSharpTest
 {
-    #region StageTypeEnum
-    public enum Stage_Type
-    {
-        firstStage, secondStage
-    };
-    #endregion
+
     class Stage
     {
         #region Fields
@@ -22,11 +17,7 @@ namespace SpaceXSimCSharpTest
         Stage_Type type;
         #endregion
 
-        #region FillRateConstants
-        const double RADIUS = 1.83;
-        const double RP1FillRate = 10;
-        const double LO2FillRate = 25;
-        #endregion
+ 
 
         #region Properties
         public Tank Kerosene
@@ -53,15 +44,15 @@ namespace SpaceXSimCSharpTest
             {
                 case Stage_Type.firstStage:
                     #region FirstStage
-                     kerosene = new Tank(10.477, RADIUS, Fuel_Type.RP1);
-                     oxygen = new Tank(26.822, RADIUS, Fuel_Type.LO2);
+                     kerosene = new Tank(10.477, Global.RADIUS, Fuel_Type.RP1);
+                     oxygen = new Tank(26.822, Global.RADIUS, Fuel_Type.LO2);
                      stageControl = new ControlSystem[3];
                     #endregion
                     break;
                 case Stage_Type.secondStage:
                     #region SecondStage
-                     kerosene = new Tank(3.932, RADIUS, Fuel_Type.RP1);
-                     oxygen = new Tank(10.068, RADIUS, Fuel_Type.LO2);
+                     kerosene = new Tank(3.932, Global.RADIUS, Fuel_Type.RP1);
+                     oxygen = new Tank(10.068, Global.RADIUS, Fuel_Type.LO2);
                      stageControl = new ControlSystem[2];
                     #endregion
                     break;
@@ -91,7 +82,7 @@ namespace SpaceXSimCSharpTest
         {
             while (oxygen.FilledVolume < oxygen.MaxVolume)
             {
-                oxygen.Fill(LO2FillRate);
+                oxygen.Fill(Global.LO2FillRate);
             }
         }
         /// <summary>
@@ -101,7 +92,7 @@ namespace SpaceXSimCSharpTest
         {
             while (kerosene.FilledVolume < kerosene.MaxVolume)
             {
-                kerosene.Fill(RP1FillRate);
+                kerosene.Fill(Global.RP1FillRate);
             }
         }
         #endregion

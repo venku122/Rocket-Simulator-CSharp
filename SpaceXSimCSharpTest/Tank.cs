@@ -16,10 +16,7 @@ namespace SpaceXSimCSharpTest
     class Tank
     {
 
-        #region FuelDensityConstants
-        const double RP1DENSITY = 915;
-        const double LO2DENSITY = 1141;
-        #endregion
+
 
         #region Fields
         double length;
@@ -80,7 +77,7 @@ namespace SpaceXSimCSharpTest
                 filledVolume += v;
             }
             //Debug Print statement
-            Console.WriteLine("Filled Volume: " + String.Format("{0:0.000}", filledVolume) + " Max Volume: " + String.Format("{0:0.000}", MaxVolume) + " Mass: " + String.Format("{0:0.000}", mass) + type.ToString());
+            Console.WriteLine("Filled Volume: " + String.Format("{0:0.000}", filledVolume) + " Max Volume: " + String.Format("{0:0.000}", MaxVolume) + " Mass: " + String.Format("{0:0.000}", mass) + (" ")+type.ToString());
             //Updates the mass of the tank
             Update();
 
@@ -90,13 +87,13 @@ namespace SpaceXSimCSharpTest
         /// </summary>
         private void Update()
         {
-            switch(type)
+            switch (type)
             {
                 case Fuel_Type.RP1:
-                    mass = filledVolume * RP1DENSITY;
+                    mass = filledVolume * Global.RP1DENSITY;
                     break;
                 case Fuel_Type.LO2:
-                    mass = filledVolume * LO2DENSITY;
+                    mass = filledVolume * Global.LO2DENSITY;
                     break;
             }
         }
