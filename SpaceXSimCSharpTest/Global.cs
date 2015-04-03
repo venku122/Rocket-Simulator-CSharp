@@ -22,6 +22,7 @@ namespace SpaceXSimCSharpTest
     /// </summary>
     enum Flight_State
     {
+        Initialize,
         Prelaunch,
         Launch,
         Flight
