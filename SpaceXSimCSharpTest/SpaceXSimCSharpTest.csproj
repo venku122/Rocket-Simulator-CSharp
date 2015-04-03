@@ -43,12 +43,12 @@
   <ItemGroup>
     <Compile Include="ControlSystem.cs" />
     <Compile Include="Falcon9.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Merlin.cs" />
     <Compile Include="OctoWeb.cs" />
     <Compile Include="Payload.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimConstants.cs" />
     <Compile Include="Stage.cs" />
     <Compile Include="Tank.cs" />
   </ItemGroup>
