@@ -53,30 +53,31 @@ namespace SpaceXSimCSharpTest
                         timePassed += Global.TIMESTEP;
 
                         actions.Enqueue(rocket.Stage1.FillLO2);
+                        actions.Enqueue(rocket.Stage1.FillRP1);
+                        actions.Enqueue(rocket.Stage2.FillLO2);
+                        actions.Enqueue(rocket.Stage2.FillRP1);
+                        /*
                         if (rocket.Stage1.Oxygen.FilledVolume>=rocket.Stage1.Oxygen.MaxVolume)
                         {
                             Console.WriteLine("Tank is full");
                             Console.WriteLine(rocket.Stage1.Oxygen.FilledVolume);
                             Console.WriteLine(timePassed);
                             run = false;
+                        }*/
+                        if (rocket.Stage2.Kerosene.IsFull() && rocket.Stage1.Kerosene.IsFull() && rocket.Stage1.Oxygen.IsFull() && rocket.Stage1.Oxygen.IsFull())
+                        {
+                            Console.WriteLine("Rocket is fully fueled");
+                            run = false;
                         }
-                        /*actions.Add(rocket.Stage1.FillRP1);
-                        actions.Add(rocket.Stage2.FillLO2);
-                        actions.Add(rocket.Stage2.FillRP1);*/
+
 
                         break;
                 }
                 if(actions.Count!=0)
                 {
-                    /*
-                     method= new ThreadStart(() => actions.Dequeue());
-                     thread1 = new Thread(method);*/
                     method = new ThreadStart(actions.Dequeue());
                     thread1 = new Thread(method);
-
                 }
-                
-                
 
                 if(thread1!=null)
                 {

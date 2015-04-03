@@ -71,6 +71,7 @@ namespace SpaceXSimCSharpTest
             if (v > maxVolume||((filledVolume+v)>maxVolume))
             {
                 filledVolume = maxVolume;
+                Console.WriteLine("tank method says 'im full'");
             }
             else
             {
@@ -96,6 +97,12 @@ namespace SpaceXSimCSharpTest
                     mass = filledVolume * Global.LO2DENSITY;
                     break;
             }
+        }
+
+        public bool IsFull()
+        {
+            return (filledVolume == maxVolume);
+
         }
         #endregion
     }

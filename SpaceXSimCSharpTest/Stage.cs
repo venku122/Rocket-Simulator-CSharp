@@ -78,7 +78,7 @@ namespace SpaceXSimCSharpTest
         /// <summary>
         /// Fills up a LO2 tank
         /// </summary>
-        private void FillLO2()
+        public void FillLO2()
         {
             while (oxygen.FilledVolume < oxygen.MaxVolume)
             {
@@ -88,7 +88,7 @@ namespace SpaceXSimCSharpTest
         /// <summary>
         /// Fills up an RP1 tank
         /// </summary>
-        private void FillRP1()
+        public void FillRP1()
         {
             while (kerosene.FilledVolume < kerosene.MaxVolume)
             {
