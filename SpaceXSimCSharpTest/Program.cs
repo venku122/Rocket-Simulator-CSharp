@@ -67,7 +67,7 @@ namespace SpaceXSimCSharpTest
                         if (rocket.Stage2.Kerosene.IsFull() && rocket.Stage1.Kerosene.IsFull() && rocket.Stage1.Oxygen.IsFull() && rocket.Stage1.Oxygen.IsFull())
                         {
                             Console.WriteLine("Rocket is fully fueled");
-                            run = false;
+                            run = false; ;
                         }
 
 
