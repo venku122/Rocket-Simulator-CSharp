@@ -78,7 +78,9 @@ namespace SpaceXSimCSharpTest
                 filledVolume += v;
             }
             //Debug Print statement
-            Console.WriteLine("Filled Volume: " + String.Format("{0:0.000}", filledVolume) + " Max Volume: " + String.Format("{0:0.000}", MaxVolume) + " Mass: " + String.Format("{0:0.000}", mass) + (" ")+type.ToString());
+            //Console.WriteLine("Filled Volume: " + String.Format("{0:0.000}", filledVolume) + " Max Volume: " + String.Format("{0:0.000}", MaxVolume) + " Mass: " + String.Format("{0:0.000}", mass) + (" ")+type.ToString());
+            Console.WriteLine("Filled Volume: " + Math.Round(filledVolume, 3) + " Max Volume: " + Math.Round(MaxVolume, 3) + " Mass: " + Math.Round(mass, 3) + (" ") + type.ToString());
+
             //Updates the mass of the tank
             Update();
 
