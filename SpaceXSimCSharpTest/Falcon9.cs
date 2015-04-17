@@ -19,6 +19,7 @@ namespace SpaceXSimCSharpTest
         //Rocket has a name and a mission
         string name;
         string mission;
+        
         #endregion
 
         #region Properties
@@ -107,8 +108,10 @@ namespace SpaceXSimCSharpTest
         /// </summary>
         public void FillTanks()
         {
+            /*
             stage1.FillThreaded();
             stage2.FillThreaded();
+            */
         }
         #endregion
     }

@@ -19,6 +19,7 @@ namespace SpaceXSimCSharpTest
             Queue<TaskList> actions = new Queue<TaskList>();
             Falcon9 rocket = null;
             ThreadStart method=null;
+            CSVWriter fileWriter = null;
 
             List<Thread> threadList = new List<Thread>();
             Thread thread1 = null;
@@ -33,49 +34,52 @@ namespace SpaceXSimCSharpTest
             
 
 
-            double timePassed =0;
+            double timePassed = 0;
 
             while (run)
             {
-
+                
                 switch(state)
                 {
                     case Flight_State.Initialize:
                         rocket= new Falcon9("Falcon 9 1.1", "Test Rocket");
+                        fileWriter = new CSVWriter(rocket);
                         rocket.LoadPayload(new Payload(10, "Mass Simulator"));
                         Console.WriteLine("stage 1 mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass)));
                         Console.WriteLine("stage 2 mass: " + String.Format("{0:0.000}", (rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
                         //Console.WriteLine("total mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
                         Console.WriteLine("total mass: " + Math.Round((rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass), 3));
-
+                        fileWriter.StoreData(timePassed);
                         state = Flight_State.Prelaunch;
                         Console.WriteLine("Done with initialization");
                         break;
                     case Flight_State.Prelaunch:
                         timePassed += Global.TIMESTEP;
-
-                        actions.Enqueue(rocket.Stage1.FillLO2);
-                        actions.Enqueue(rocket.Stage1.FillRP1);
-                        actions.Enqueue(rocket.Stage2.FillLO2);
-                        actions.Enqueue(rocket.Stage2.FillRP1);
-                        /*
-                        if (rocket.Stage1.Oxygen.FilledVolume>=rocket.Stage1.Oxygen.MaxVolume)
+                        //fileWriter.StoreData(timePassed);
+                        if (!rocket.Stage1.IsFilled() && !rocket.Stage2.IsFilled())
                         {
-                            Console.WriteLine("Tank is full");
-                            Console.WriteLine(rocket.Stage1.Oxygen.FilledVolume);
-                            Console.WriteLine(timePassed);
-                            run = false;
-                        }*/
-                        if (rocket.Stage2.Kerosene.IsFull() && rocket.Stage1.Kerosene.IsFull() && rocket.Stage1.Oxygen.IsFull() && rocket.Stage1.Oxygen.IsFull())
+                            actions.Enqueue(rocket.Stage1.FillLO2);
+                            actions.Enqueue(rocket.Stage1.FillRP1);
+                            actions.Enqueue(rocket.Stage2.FillLO2);
+                            actions.Enqueue(rocket.Stage2.FillRP1);
+                        }
+                
+                        
+
+                        if (rocket.Stage1.IsFilled() && rocket.Stage2.IsFilled())
                         {
                             Console.WriteLine("Rocket is fully fueled");
+                            fileWriter.CreateFile("rocketSimData.csv");
                             run = false; ;
                         }
 
 
                         break;
                 }
-                if(actions.Count!=0)
+                
+
+                #region Update
+                if (actions.Count!=0)
                 {
                     method = new ThreadStart(actions.Dequeue());
                     thread1 = new Thread(method);
@@ -85,8 +89,12 @@ namespace SpaceXSimCSharpTest
                 {
                     thread1.Start();
                     thread1.Join();
+                    fileWriter.StoreData(timePassed);
                 }
+                #endregion
 
+
+               
                 
                
                 

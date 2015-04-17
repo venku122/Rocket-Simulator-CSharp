@@ -63,6 +63,8 @@ namespace SpaceXSimCSharpTest
         #endregion
 
         #region Methods
+        //Deprecated, currently implemented in ThreadManager
+        /*
         /// <summary>
         /// Creates two threads to fill up both propellant tanks
         /// </summary>
@@ -75,12 +77,14 @@ namespace SpaceXSimCSharpTest
             fill2.Join();
 
         }
+
+        */
         /// <summary>
         /// Fills up a LO2 tank
         /// </summary>
         public void FillLO2()
         {
-            while (oxygen.FilledVolume < oxygen.MaxVolume)
+            if (oxygen.FilledVolume < oxygen.MaxVolume)
             {
                 oxygen.Fill(Global.LO2FillRate);
             }
@@ -90,9 +94,21 @@ namespace SpaceXSimCSharpTest
         /// </summary>
         public void FillRP1()
         {
-            while (kerosene.FilledVolume < kerosene.MaxVolume)
+            if(kerosene.FilledVolume < kerosene.MaxVolume)
             {
                 kerosene.Fill(Global.RP1FillRate);
+            }
+        }
+
+        public bool IsFilled()
+        {
+            if (oxygen.FilledVolume >= oxygen.MaxVolume && kerosene.FilledVolume >= kerosene.MaxVolume)
+            {
+                return true; 
+            }
+            else
+            {
+                return false;
             }
         }
         #endregion
