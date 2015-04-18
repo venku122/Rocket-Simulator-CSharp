@@ -16,15 +16,16 @@ namespace SpaceXSimCSharpTest
         {
             bool run = true;
             Flight_State state=Flight_State.Initialize;
-            Queue<TaskList> actions = new Queue<TaskList>();
-            Falcon9 rocket = null;
 
+            Falcon9 rocket = null;
             CSVWriter fileWriter = null;
 
             #region Threading
             
             ThreadStart method = null;
             List<Thread> threadList = new List<Thread>();
+            Queue<TaskList> actions = new Queue<TaskList>();
+
             Thread thread1 = null;
             Thread thread2 = null;
             Thread thread3 = null;
@@ -89,7 +90,7 @@ namespace SpaceXSimCSharpTest
 
                 #region Update
                 #region OldSingleThread
-
+                /*
                 while (actions.Count != 0)
                 {
                     method = new ThreadStart(actions.Dequeue());
@@ -116,13 +117,11 @@ namespace SpaceXSimCSharpTest
                         fileWriter.StoreData(timePassed);
                     }
                 }
+                */
                 #endregion
 
-                /*
-                threader.MasterList = actions;
-                threader.DelegateTasks();
-                threader.StartThreads();
-                 * */
+                threader.Update(actions);
+                fileWriter.StoreData(timePassed);
 
                 #endregion
 
