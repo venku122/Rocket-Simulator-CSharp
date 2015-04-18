@@ -18,9 +18,12 @@ namespace SpaceXSimCSharpTest
             Flight_State state=Flight_State.Initialize;
             Queue<TaskList> actions = new Queue<TaskList>();
             Falcon9 rocket = null;
-            ThreadStart method=null;
+
             CSVWriter fileWriter = null;
 
+            #region Threading
+            /*
+            ThreadStart method = null;
             List<Thread> threadList = new List<Thread>();
             Thread thread1 = null;
             Thread thread2 = null;
@@ -31,7 +34,11 @@ namespace SpaceXSimCSharpTest
             threadList.Add(thread2);
             threadList.Add(thread3);
             threadList.Add(thread4);
-            
+            */
+
+            ThreadManager threader = new ThreadManager();
+            #endregion
+
 
 
             double timePassed = 0;
@@ -42,20 +49,23 @@ namespace SpaceXSimCSharpTest
                 switch(state)
                 {
                     case Flight_State.Initialize:
-                        rocket= new Falcon9("Falcon 9 1.1", "Test Rocket");
+                        #region Initialization
+                        rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
                         fileWriter = new CSVWriter(rocket);
                         rocket.LoadPayload(new Payload(10, "Mass Simulator"));
                         Console.WriteLine("stage 1 mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass)));
                         Console.WriteLine("stage 2 mass: " + String.Format("{0:0.000}", (rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
                         //Console.WriteLine("total mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
                         Console.WriteLine("total mass: " + Math.Round((rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass), 3));
-                        fileWriter.StoreData(timePassed);
+                        //fileWriter.StoreData(timePassed);
                         state = Flight_State.Prelaunch;
                         Console.WriteLine("Done with initialization");
+                        #endregion
+
                         break;
                     case Flight_State.Prelaunch:
+                        #region Prelaunch
                         timePassed += Global.TIMESTEP;
-                        //fileWriter.StoreData(timePassed);
                         if (!rocket.Stage1.IsFilled() && !rocket.Stage2.IsFilled())
                         {
                             actions.Enqueue(rocket.Stage1.FillLO2);
@@ -73,13 +83,14 @@ namespace SpaceXSimCSharpTest
                             run = false; ;
                         }
 
-
+#endregion
                         break;
                 }
-                
 
                 #region Update
-                if (actions.Count!=0)
+                #region OldSingleThread
+                /*
+                while(actions.Count!=0)
                 {
                     method = new ThreadStart(actions.Dequeue());
                     thread1 = new Thread(method);
@@ -90,45 +101,14 @@ namespace SpaceXSimCSharpTest
                     thread1.Start();
                     thread1.Join();
                     fileWriter.StoreData(timePassed);
-                }
-                #endregion
-
-
-               
-                
-               
-                
-
-                //processInput()
-
-                //update()
-
-                //render()
-
-                #region OldLoop
-                /*
-                switch (state)
-                {
-                    case Flight_State.Prelaunch:
-                        #region Prelaunch
-                        Falcon9 rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
-
-                        rocket.LoadPayload(new Payload(10, "Mass Simulator"));
-
-                        rocket.FillTanks();
-                        Console.WriteLine("stage 1 mass: " + String.Format("{0:0.000}",(rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass)));
-                        Console.WriteLine("stage 2 mass: " + String.Format("{0:0.000}",(rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
-                        Console.WriteLine("total mass: " + String.Format("{0:0.000}",(rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
-                        run = false;
-                       
-                        #endregion 
-                        break;
-                    case Flight_State.Launch:
-                        break;
-                    case Flight_State.Flight:
-                        break;
                 }*/
                 #endregion
+                threader.MasterList = actions;
+                threader.DelegateTasks();
+                threader.StartThreads();
+
+                #endregion
+
             }
         }      
     }

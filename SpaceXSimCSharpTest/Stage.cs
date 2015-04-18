@@ -63,6 +63,7 @@ namespace SpaceXSimCSharpTest
         #endregion
 
         #region Methods
+        #region Deprecated ThreadFill
         //Deprecated, currently implemented in ThreadManager
         /*
         /// <summary>
@@ -82,6 +83,8 @@ namespace SpaceXSimCSharpTest
         /// <summary>
         /// Fills up a LO2 tank
         /// </summary>
+#endregion
+
         public void FillLO2()
         {
             if (oxygen.FilledVolume < oxygen.MaxVolume)

@@ -50,7 +50,7 @@ namespace SpaceXSimCSharpTest
             sb.Append(data.Stage2.Oxygen.FilledVolume+",");
             sb.Append(data.Stage2.Kerosene.FilledVolume+",");
             sb.Append("\n");
-            Console.WriteLine("New Line Created");
+            //Console.WriteLine("New Line Created");
             
             
 
