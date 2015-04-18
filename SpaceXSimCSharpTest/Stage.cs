@@ -107,6 +107,7 @@ namespace SpaceXSimCSharpTest
         {
             if (oxygen.FilledVolume >= oxygen.MaxVolume && kerosene.FilledVolume >= kerosene.MaxVolume)
             {
+                Console.WriteLine("isFilled is true" + type.ToString());
                 return true; 
             }
             else

@@ -22,7 +22,7 @@ namespace SpaceXSimCSharpTest
             CSVWriter fileWriter = null;
 
             #region Threading
-            /*
+            
             ThreadStart method = null;
             List<Thread> threadList = new List<Thread>();
             Thread thread1 = null;
@@ -34,7 +34,7 @@ namespace SpaceXSimCSharpTest
             threadList.Add(thread2);
             threadList.Add(thread3);
             threadList.Add(thread4);
-            */
+            
 
             ThreadManager threader = new ThreadManager();
             #endregion
@@ -66,7 +66,7 @@ namespace SpaceXSimCSharpTest
                     case Flight_State.Prelaunch:
                         #region Prelaunch
                         timePassed += Global.TIMESTEP;
-                        if (!rocket.Stage1.IsFilled() && !rocket.Stage2.IsFilled())
+                        if (!rocket.Stage1.IsFilled() || !rocket.Stage2.IsFilled())
                         {
                             actions.Enqueue(rocket.Stage1.FillLO2);
                             actions.Enqueue(rocket.Stage1.FillRP1);
@@ -89,23 +89,40 @@ namespace SpaceXSimCSharpTest
 
                 #region Update
                 #region OldSingleThread
-                /*
-                while(actions.Count!=0)
+
+                while (actions.Count != 0)
                 {
                     method = new ThreadStart(actions.Dequeue());
                     thread1 = new Thread(method);
-                }
+                    method = new ThreadStart(actions.Dequeue());
+                    thread2 = new Thread(method);
+                    method = new ThreadStart(actions.Dequeue());
+                    thread3 = new Thread(method);
+                    method = new ThreadStart(actions.Dequeue());
+                    thread4 = new Thread(method);
 
-                if(thread1!=null)
-                {
-                    thread1.Start();
-                    thread1.Join();
-                    fileWriter.StoreData(timePassed);
-                }*/
+
+                    if (thread1 != null)
+                    {
+                        thread1.Start();
+                        thread2.Start();
+                        thread3.Start();
+                        thread4.Start();
+
+                        thread1.Join();
+                        thread2.Join();
+                        thread3.Join();
+                        thread4.Join();
+                        fileWriter.StoreData(timePassed);
+                    }
+                }
                 #endregion
+
+                /*
                 threader.MasterList = actions;
                 threader.DelegateTasks();
                 threader.StartThreads();
+                 * */
 
                 #endregion
 
