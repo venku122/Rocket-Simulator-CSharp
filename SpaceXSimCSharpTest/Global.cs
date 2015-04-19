@@ -34,8 +34,8 @@ namespace SpaceXSimCSharpTest
 
         #region FillRateConstants
         public const double RADIUS = 1.83;
-        public const double RP1FillRate = .3333; //temporary
-        public const double LO2FillRate = .1667; //temporary
+        public const double RP1FillRate = 0.3333; //temporary
+        public const double LO2FillRate = 0.1667; //temporary
         #endregion
 
         #region FuelDensityConstants

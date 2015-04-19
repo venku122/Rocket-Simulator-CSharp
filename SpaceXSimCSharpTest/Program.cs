@@ -22,22 +22,9 @@ namespace SpaceXSimCSharpTest
 
             #region Threading
             
-            ThreadStart method = null;
-            List<Thread> threadList = new List<Thread>();
             Queue<TaskList> actions = new Queue<TaskList>();
-
-            Thread thread1 = null;
-            Thread thread2 = null;
-            Thread thread3 = null;
-            Thread thread4 = null;
-
-            threadList.Add(thread1);
-            threadList.Add(thread2);
-            threadList.Add(thread3);
-            threadList.Add(thread4);
-            
-
             ThreadManager threader = new ThreadManager();
+
             #endregion
 
 
@@ -81,7 +68,7 @@ namespace SpaceXSimCSharpTest
                         {
                             Console.WriteLine("Rocket is fully fueled");
                             fileWriter.CreateFile("rocketSimData.csv");
-                            run = false; ;
+                            run = false; 
                         }
 
 #endregion
@@ -120,7 +107,8 @@ namespace SpaceXSimCSharpTest
                 */
                 #endregion
 
-                threader.Update(actions);
+                //threader.Update(actions);
+                threader.TaskMaker(actions);
                 fileWriter.StoreData(timePassed);
 
                 #endregion

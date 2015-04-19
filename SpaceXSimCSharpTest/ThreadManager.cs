@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpaceXSimCSharpTest
 {
@@ -99,6 +100,7 @@ namespace SpaceXSimCSharpTest
             threadList.Add(thread4);
         }
 
+        
         public void Update(Queue<TaskList> a)
         {
             actions = a;
@@ -130,6 +132,47 @@ namespace SpaceXSimCSharpTest
                 }
             }
         }
+         
+        public void FillPool(Queue<TaskList> a)
+        {
+            while(a.Count!=0)
+            {
+                ThreadPool.QueueUserWorkItem(delegate { a.Dequeue(); });
+            }
+            
+
+        }
+
+        public void TaskMaker(Queue<TaskList> a)
+        {
+            
+            if(a.Count>=1)
+            { 
+            var tasks = new Task[a.Count-1];
+            for (int i=0;i<a.Count-1;i++)
+            {
+                if(a.Count!=0)
+                {
+                    tasks[i] = Task.Factory.StartNew(new Action(a.Dequeue()));
+                    Console.WriteLine("Task Created");
+                }
+                
+            }
+            try
+            {
+                Task.WaitAll();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+        }
+
+
+            Console.WriteLine("All done");
+        }
+        
 
     }
 }
