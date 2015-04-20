@@ -48,6 +48,8 @@ namespace SpaceXSimCSharpTest
         /// This is the time that passes every loop. It is a # of Seconds. Currently set at 100 milliseconds
         /// </summary>
         public static double TIMESTEP = .1;
-        #endregion
+
+        public static double GRAVITY = 9.80665;
+        #endregion  
     }
 }

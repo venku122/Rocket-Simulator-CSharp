@@ -19,6 +19,7 @@ namespace SpaceXSimCSharpTest
 
             Falcon9 rocket = null;
             CSVWriter fileWriter = null;
+            
 
             #region Threading
             
@@ -33,6 +34,7 @@ namespace SpaceXSimCSharpTest
 
             while (run)
             {
+                timePassed += Global.TIMESTEP;
                 
                 switch(state)
                 {
@@ -53,7 +55,7 @@ namespace SpaceXSimCSharpTest
                         break;
                     case Flight_State.Prelaunch:
                         #region Prelaunch
-                        timePassed += Global.TIMESTEP;
+
                         if (!rocket.Stage1.IsFilled() || !rocket.Stage2.IsFilled())
                         {
                             actions.Enqueue(rocket.Stage1.FillLO2);
@@ -66,12 +68,26 @@ namespace SpaceXSimCSharpTest
 
                         if (rocket.Stage1.IsFilled() && rocket.Stage2.IsFilled())
                         {
+                            
                             Console.WriteLine("Rocket is fully fueled");
-                            fileWriter.CreateFile("rocketSimData.csv");
-                            run = false; 
+
+                            
+                            state = Flight_State.Launch;
                         }
 
 #endregion
+                        break;
+                    case Flight_State.Launch:
+                        #region Launch
+
+                        actions.Enqueue(rocket.Stage1.FireEngines);
+
+                        if(rocket.Stage1.Kerosene.FilledVolume<20)
+                        {
+                            fileWriter.CreateFile("rocketSimData.csv");
+                            run = false; 
+                        }
+                        #endregion
                         break;
                 }
 

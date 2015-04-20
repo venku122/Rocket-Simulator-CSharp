@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpaceXSimCSharpTest
 {
-    class Merlin
+    class Merlin1DSL : Merlin
     {
 
         #region Merlin 1D Stats
@@ -43,34 +44,33 @@ namespace SpaceXSimCSharpTest
             get { return throttle; }
             set { throttle = value; }
         }
-
-        public Merlin()
+        
+        public Merlin1DSL()
         {
             mass = 450;
-            throttle = 1;
         }
 
-        public double Update(Stage s)
+        public double Update(Tank t)
         {
-
+            
 
             //F= mDot*Vexhaust +(pExhasut -pOutside)*AreaNozzle
 
             //F=Isp*mDot*G
-            PullLOX(s.Oxygen);
-            PullRP1(s.Kerosene);
+            PullLOX(t);
+            PullRP1(t);
 
-            Mdot = MaxMdot * throttle;
+            Mdot=MaxMdot*throttle;
 
             return (IspSL * Mdot * Global.GRAVITY);
         }
-        public void ChangeThrottle(double v)
+        public override void ChangeThrottle(double v)
         {
-            if (v <= .7)
+            if(v<=.7)
             {
                 throttle = .7;
             }
-            else if (v >= 1)
+            else if(v>=1)
             {
                 throttle = 1;
             }
@@ -82,15 +82,15 @@ namespace SpaceXSimCSharpTest
 
         private void PullRP1(Tank t)
         {
-            t.Empty(((Mdot / 3.34)/Global.RP1DENSITY)*Global.TIMESTEP);
+            t.Empty(Mdot/3.34);
             return;
         }
 
         private void PullLOX(Tank t)
         {
-            t.Empty(((Mdot / 1.42735)/Global.LO2DENSITY)*Global.TIMESTEP);
+            t.Empty(Mdot / 1.42735);
             return;
         }
-
+        
     }
-}
+}*/

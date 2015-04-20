@@ -106,6 +106,24 @@ namespace SpaceXSimCSharpTest
             return (filledVolume == maxVolume);
 
         }
+
+        public double Empty(double v)
+        {
+            filledVolume -= v;
+            Update();
+            switch (type)
+            {
+                case Fuel_Type.RP1:
+                    return v* Global.RP1DENSITY;
+                    break;
+                case Fuel_Type.LO2:
+                     return v* Global.LO2DENSITY;
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
+        }
         #endregion
     }
 }

@@ -8,7 +8,29 @@ namespace SpaceXSimCSharpTest
 {
     class OctoWeb
     {
-        Merlin[] merlinStack = new Merlin[9];
+        public Merlin[] merlinStack;
+
+        public OctoWeb(Stage_Type type)
+        {
+            switch(type)
+            {
+                case Stage_Type.firstStage:
+                    merlinStack = new Merlin[9];
+                    for (int i = 0; i < merlinStack.Length;i++ )
+                    {
+                        merlinStack[i] = new Merlin();
+                    }
+                        break;
+                case Stage_Type.secondStage:
+                    merlinStack = new Merlin[1];
+                    for (int i = 0; i < merlinStack.Length; i++)
+                    {
+                        merlinStack[i] = new Merlin();
+                    }
+                    break;
+            }
+            
+        }
 
     }
 }

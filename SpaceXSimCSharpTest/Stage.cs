@@ -15,9 +15,10 @@ namespace SpaceXSimCSharpTest
         Tank oxygen;
         ControlSystem[] stageControl;
         Stage_Type type;
+        OctoWeb engineStructure;
         #endregion
 
- 
+
 
         #region Properties
         public Tank Kerosene
@@ -40,20 +41,23 @@ namespace SpaceXSimCSharpTest
         {
             //2.56 to 1 LOX to RP1
             this.type = type;
-            switch(type)
+            switch (type)
             {
                 case Stage_Type.firstStage:
                     #region FirstStage
-                     kerosene = new Tank(10.477, Global.RADIUS, Fuel_Type.RP1);
-                     oxygen = new Tank(26.822, Global.RADIUS, Fuel_Type.LO2);
-                     stageControl = new ControlSystem[3];
+                    kerosene = new Tank(10.477, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(26.822, Global.RADIUS, Fuel_Type.LO2);
+                    stageControl = new ControlSystem[3];
+                    engineStructure = new OctoWeb(type);
+                    // engineStructure= new OctoWeb()
                     #endregion
                     break;
                 case Stage_Type.secondStage:
                     #region SecondStage
-                     kerosene = new Tank(3.932, Global.RADIUS, Fuel_Type.RP1);
-                     oxygen = new Tank(10.068, Global.RADIUS, Fuel_Type.LO2);
-                     stageControl = new ControlSystem[2];
+                    kerosene = new Tank(3.932, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(10.068, Global.RADIUS, Fuel_Type.LO2);
+                    stageControl = new ControlSystem[2];
+                    engineStructure = new OctoWeb(type);
                     #endregion
                     break;
             }
@@ -83,7 +87,7 @@ namespace SpaceXSimCSharpTest
         /// <summary>
         /// Fills up a LO2 tank
         /// </summary>
-#endregion
+        #endregion
 
         public void FillLO2()
         {
@@ -97,7 +101,7 @@ namespace SpaceXSimCSharpTest
         /// </summary>
         public void FillRP1()
         {
-            if(kerosene.FilledVolume < kerosene.MaxVolume)
+            if (kerosene.FilledVolume < kerosene.MaxVolume)
             {
                 kerosene.Fill(Global.RP1FillRate);
             }
@@ -108,13 +112,22 @@ namespace SpaceXSimCSharpTest
             if (oxygen.FilledVolume >= oxygen.MaxVolume && kerosene.FilledVolume >= kerosene.MaxVolume)
             {
                 Console.WriteLine("isFilled is true" + type.ToString());
-                return true; 
+                return true;
             }
             else
             {
                 return false;
             }
         }
+
+        public void FireEngines()
+        {
+            Console.WriteLine("engines have been fired");
+            for (int i = 0; i < engineStructure.merlinStack.Length; i++)
+            {
+                engineStructure.merlinStack[i].Update(this);
+            }
         #endregion
+        }
     }
 }

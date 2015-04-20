@@ -45,6 +45,8 @@
     <Compile Include="CSVWriter.cs" />
     <Compile Include="Falcon9.cs" />
     <Compile Include="Merlin.cs" />
+    <Compile Include="Merlin1DSL.cs" />
+    <Compile Include="Merlin1DVac.cs" />
     <Compile Include="OctoWeb.cs" />
     <Compile Include="Payload.cs" />
     <Compile Include="Program.cs" />
