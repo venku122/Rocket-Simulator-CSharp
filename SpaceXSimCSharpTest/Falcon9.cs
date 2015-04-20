@@ -113,6 +113,11 @@ namespace SpaceXSimCSharpTest
             stage2.FillThreaded();
             */
         }
+
+        public double TotalMass()
+        {
+            return stage1.Kerosene.Mass + stage1.Oxygen.Mass + stage2.Kerosene.Mass + stage2.Oxygen.Mass;
+        }
         #endregion
     }
 }

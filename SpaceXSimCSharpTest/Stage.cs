@@ -129,5 +129,15 @@ namespace SpaceXSimCSharpTest
             }
         #endregion
         }
+
+        public double TotalThrust()
+        {
+            double total = 0;
+            for (int i = 0; i < engineStructure.merlinStack.Length; i++)
+            {
+                total += engineStructure.merlinStack[i].Thrust;
+            }
+            return total;
+        }
     }
 }

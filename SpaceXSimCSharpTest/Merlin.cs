@@ -43,6 +43,10 @@ namespace SpaceXSimCSharpTest
             get { return throttle; }
             set { throttle = value; }
         }
+        public double Thrust
+        {
+            get { return IspSL * Mdot * Global.GRAVITY; }
+        }
 
         public Merlin()
         {
