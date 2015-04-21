@@ -82,16 +82,27 @@ namespace SpaceXSimCSharpTest
 
         }
         */
-#endregion
+        #endregion
 
-            ThreadStart method = null;
-            List<Thread> threadList = new List<Thread>();
-            Queue<TaskList> actions = new Queue<TaskList>();
+        #region fields
+        //temporarily holds the delegate as ThreadStartable
+        ThreadStart method = null;
+        //Holds all the threads
+        List<Thread> threadList = new List<Thread>();
+        //Holds all delegates needed to be processed
+        Queue<TaskList> actions = new Queue<TaskList>();
 
-            Thread thread1 = null;
-            Thread thread2 = null;
-            Thread thread3 = null;
-            Thread thread4 = null;
+        //Threads used for processing
+        Thread thread1 = null;
+        Thread thread2 = null;
+        Thread thread3 = null;
+        Thread thread4 = null;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Adds thread object to the threadList
+        /// </summary>
         public ThreadManager()
         {
             threadList.Add(thread1);
@@ -99,8 +110,15 @@ namespace SpaceXSimCSharpTest
             threadList.Add(thread3);
             threadList.Add(thread4);
         }
+        #endregion
 
-        
+        #region Methods
+
+        #region Update()
+        /// <summary>
+        /// Once passed a queue of tasks, will assign them to threads and execute them
+        /// </summary>
+        /// <param name="a"></param>
         public void Update(Queue<TaskList> a)
         {
             actions = a;
@@ -132,47 +150,45 @@ namespace SpaceXSimCSharpTest
                 }
             }
         }
-         
-        public void FillPool(Queue<TaskList> a)
-        {
-            while(a.Count!=0)
-            {
-                ThreadPool.QueueUserWorkItem(delegate { a.Dequeue(); });
-            }
-            
+        #endregion
 
-        }
-
+        #region TaskMaker
+        /// <summary>
+        /// Takes a queue of actions, creates tasks for them, and gives them to the tsk manager to process
+        /// </summary>
+        /// <param name="a"></param>
         public void TaskMaker(Queue<TaskList> a)
         {
-            
-            if(a.Count>=1)
-            { 
-            var tasks = new Task[a.Count-1];
-            for (int i=0;i<a.Count-1;i++)
+
+            if (a.Count >= 1)
             {
-                if(a.Count!=0)
+                var tasks = new Task[a.Count - 1];
+                for (int i = 0; i < a.Count - 1; i++)
                 {
-                    tasks[i] = Task.Factory.StartNew(new Action(a.Dequeue()));
-                    Console.WriteLine("Task Created");
+                    if (a.Count != 0)
+                    {
+                        tasks[i] = Task.Factory.StartNew(new Action(a.Dequeue()));
+                        //Console.WriteLine("Task Created");
+                    }
+
                 }
-                
+                try
+                {
+                    Task.WaitAll();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
             }
-            try
-            {
-                Task.WaitAll();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            
-        }
 
 
-            Console.WriteLine("All done");
+            //Console.WriteLine("All done");
         }
-        
+        #endregion
+        #endregion
+
 
     }
 }

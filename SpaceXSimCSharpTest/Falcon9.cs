@@ -37,6 +37,11 @@ namespace SpaceXSimCSharpTest
         {
             get { return mission; }
         }
+
+        public String Payload
+        {
+            get { return missionPayload.Name; }
+        }
         /// <summary>
         /// returns a stage object of the first stage
         /// </summary>

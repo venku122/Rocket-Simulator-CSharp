@@ -109,29 +109,37 @@ namespace SpaceXSimCSharpTest
         /// </summary>
         #endregion
 
+        #region FillLO2
+        //Fills the tank with a volume determined by the fill rate and timestep
+        //fill rate is seconds, timestep is fractional seconds
         public void FillLO2()
         {
             if (oxygen.FilledVolume < oxygen.MaxVolume)
             {
-                oxygen.Fill(Global.LO2FillRate);
+                oxygen.Fill(Global.LO2FillRate*Global.TIMESTEP);
             }
         }
-        /// <summary>
-        /// Fills up an RP1 tank
-        /// </summary>
+        #endregion
+
+        #region FillRP1()
+        //Fills the tank with a volume determined by the fill rate and timestep
+        //fill rate is seconds, timestep is fractional seconds
         public void FillRP1()
         {
             if (kerosene.FilledVolume < kerosene.MaxVolume)
             {
-                kerosene.Fill(Global.RP1FillRate);
+                kerosene.Fill(Global.RP1FillRate*Global.TIMESTEP);
             }
         }
+        #endregion
 
+        #region IsFilled()
+        //returns a boolean if all tanks in stage are filled
         public bool IsFilled()
         {
             if (oxygen.FilledVolume >= oxygen.MaxVolume && kerosene.FilledVolume >= kerosene.MaxVolume)
             {
-                Console.WriteLine("isFilled is true" + type.ToString());
+                //Console.WriteLine("isFilled is true" + type.ToString());
                 return true;
             }
             else
@@ -139,17 +147,28 @@ namespace SpaceXSimCSharpTest
                 return false;
             }
         }
+        #endregion
 
+        #region FireEngines()
+        /// <summary>
+        /// Updates all engines in the stage, drawing fuel and updating thrust
+        /// </summary>
         public void FireEngines()
         {
-            Console.WriteLine("engines have been fired");
+            //Console.WriteLine("engines have been fired");
             for (int i = 0; i < engineStructure.merlinStack.Length; i++)
             {
                 engineStructure.merlinStack[i].Update(this);
             }
         
         }
+        #endregion
 
+        #region TotalThrust()
+        /// <summary>
+        /// Returns the total thrust of all engines combined
+        /// </summary>
+        /// <returns></returns>
         public double TotalThrust()
         {
             double total = 0;
@@ -159,17 +178,35 @@ namespace SpaceXSimCSharpTest
             }
             return total;
         }
+        #endregion
 
+        #region SingleThrust()
+        /// <summary>
+        /// Returns the current thrust of a single engine in the stage
+        /// </summary>
+        /// <returns></returns>
         public double SingleThrust()
         {
             return engineStructure.merlinStack[1].Thrust;
         }
+        #endregion
 
+        #region TotalMass()
+        /// <summary>
+        /// Returns the total mass of the Stage, including all tanks and structures
+        /// </summary>
+        /// <returns></returns>
         public double TotalMass()
         {
             return oxygen.Mass + kerosene.Mass + engineStructure.Mass;
         }
+        #endregion
 
+        #region ChangeThrottle
+        /// <summary>
+        /// Changes the throttle value by the specified amount for every engine in the stage
+        /// </summary>
+        /// <param name="v"></param>
         public void ChangeThrottle(double v)
         {
             for (int i = 0; i < engineStructure.merlinStack.Length; i++)
@@ -177,6 +214,7 @@ namespace SpaceXSimCSharpTest
                 engineStructure.merlinStack[i].ChangeThrottle(v);
             }
         }
+        #endregion
         #endregion
     }
 }

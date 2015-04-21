@@ -69,9 +69,15 @@ namespace SpaceXSimCSharpTest
                         {
                             
                             Console.WriteLine("Rocket is fully fueled");
+                            fileWriter.AppendSingle("Fully Fueled");
+                            for (int i = 10; i > 0;i-- )
+                            {
+                                Console.WriteLine(i);
+                            }
+                            Console.WriteLine("We have liftoff of the " + rocket.Name + " carrying the " + rocket.Payload + " at t+" + String.Format("{0:0.000}", timePassed));
 
-                            
-                            state = Flight_State.Launch;
+
+                                state = Flight_State.Launch;
                         }
 
 #endregion
@@ -88,6 +94,8 @@ namespace SpaceXSimCSharpTest
                         if(rocket.Stage1.Kerosene.FilledVolume<0||rocket.Stage1.Oxygen.FilledVolume<0)
                         {
                             state = Flight_State.Flight;
+                            Console.WriteLine("Main Engine Cut Off at t+" + String.Format("{0:0.000}", timePassed) + " seconds");
+                            fileWriter.AppendSingle("MECO");
                             //fileWriter.CreateFile("rocketSimData.csv");
                             //run = false; 
                         }
@@ -106,6 +114,9 @@ namespace SpaceXSimCSharpTest
                         {
                             state = Flight_State.Flight;
                             fileWriter.CreateFile("rocketSimData.csv");
+                            Console.WriteLine("Secondary Engine Cut Off at t+" + String.Format("{0:0.000}", timePassed) + " seconds");
+                            fileWriter.AppendSingle("SECO");
+                           
                             run = false;
                         }
                         #endregion
@@ -147,6 +158,7 @@ namespace SpaceXSimCSharpTest
                 //threader.Update(actions);
                 threader.TaskMaker(actions);
                 fileWriter.StoreData(timePassed, state);
+                //Console.WriteLine("Loop Over");
 
                 #endregion
 
