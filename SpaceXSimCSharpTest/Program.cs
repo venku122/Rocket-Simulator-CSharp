@@ -79,13 +79,27 @@ namespace SpaceXSimCSharpTest
                         break;
                     case Flight_State.Launch:
                         #region Launch
-
+                        
                         actions.Enqueue(rocket.Stage1.FireEngines);
 
-                        if(rocket.Stage1.Kerosene.FilledVolume<20)
+                        if(rocket.Stage1.Kerosene.FilledVolume<0||rocket.Stage1.Oxygen.FilledVolume<0)
                         {
+                            state = Flight_State.Flight;
+                            //fileWriter.CreateFile("rocketSimData.csv");
+                            //run = false; 
+                        }
+                       
+                        #endregion
+                        break;
+                    case Flight_State.Flight:
+                        #region Flight
+
+                        actions.Enqueue(rocket.Stage2.FireEngines);
+                        if (rocket.Stage2.Kerosene.FilledVolume < 0 || rocket.Stage2.Oxygen.FilledVolume < 0)
+                        {
+                            state = Flight_State.Flight;
                             fileWriter.CreateFile("rocketSimData.csv");
-                            run = false; 
+                            run = false;
                         }
                         #endregion
                         break;

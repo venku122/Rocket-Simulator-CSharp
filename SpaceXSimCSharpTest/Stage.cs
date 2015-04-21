@@ -45,8 +45,16 @@ namespace SpaceXSimCSharpTest
             {
                 case Stage_Type.firstStage:
                     #region FirstStage
+                    /*
                     kerosene = new Tank(10.477, Global.RADIUS, Fuel_Type.RP1);
                     oxygen = new Tank(26.822, Global.RADIUS, Fuel_Type.LO2);
+                    
+
+                    kerosene = new Tank(12.996, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(24.304, Global.RADIUS, Fuel_Type.LO2);
+                    */
+                    kerosene = new Tank(Global.FIRSTSTAGELENGTHRP1, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(Global.FIRSTSTAGELENGTHLO2, Global.RADIUS, Fuel_Type.LO2);
                     stageControl = new ControlSystem[3];
                     engineStructure = new OctoWeb(type);
                     // engineStructure= new OctoWeb()
@@ -54,8 +62,18 @@ namespace SpaceXSimCSharpTest
                     break;
                 case Stage_Type.secondStage:
                     #region SecondStage
+                    /*
                     kerosene = new Tank(3.932, Global.RADIUS, Fuel_Type.RP1);
                     oxygen = new Tank(10.068, Global.RADIUS, Fuel_Type.LO2);
+                    
+                    kerosene = new Tank(4.464, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(10.536, Global.RADIUS, Fuel_Type.LO2);
+                    
+                    kerosene = new Tank(5.190, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(9.81, Global.RADIUS, Fuel_Type.LO2);
+                     * */
+                    kerosene = new Tank(Global.SECONDSTAGELENGTHRP1, Global.RADIUS, Fuel_Type.RP1);
+                    oxygen = new Tank(Global.SECONDSTAGELENGTHLO2, Global.RADIUS, Fuel_Type.LO2);
                     stageControl = new ControlSystem[2];
                     engineStructure = new OctoWeb(type);
                     #endregion

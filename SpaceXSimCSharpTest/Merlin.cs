@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace SpaceXSimCSharpTest
 {
+    enum Engine_Type
+    {
+        SL,
+        Vac
+    }
     class Merlin
     {
 
@@ -24,20 +29,21 @@ namespace SpaceXSimCSharpTest
         public double fuelRatio = 2.34; // ratio of LOX to RP1
 
         public double MaxMdot = 236; // kilograms
-        private double Mdot = 236;
+        private double Mdot;
 
         public double MaxThrustSL = 653.889; // kilonewtons
 
-        public double IspSL = 282; // seconds
+        public double IspSL = 282;
+        public double IspVac = 347;// seconds
 
         public double MaxThrustVac = 742.853; // kilonewtons
 
-        public double IspVac = 320; // seconds
+        //public double IspVac = 320; // seconds
         #endregion
 
         private double mass;
         private double throttle;
-
+        private Engine_Type type;
         public double Throttle
         {
             get { return throttle; }
@@ -45,13 +51,37 @@ namespace SpaceXSimCSharpTest
         }
         public double Thrust
         {
-            get { return IspSL * Mdot * Global.GRAVITY; }
+            get { 
+                switch(type)
+                {
+                    case Engine_Type.SL:
+                        return IspSL * Mdot * Global.GRAVITY;
+                        break;
+                    case Engine_Type.Vac:
+                        return IspVac*Mdot*Global.GRAVITY;
+                        break;
+                    default:
+                        return -1;
+                        break;
+                }
+                
+            }
         }
 
-        public Merlin()
+        public Merlin(Engine_Type t)
         {
             mass = 450;
             throttle = 1;
+            type=t;
+            switch(type)
+            {
+                case Engine_Type.SL:
+                    Mdot = 236;
+                    break;
+                case Engine_Type.Vac:
+                    Mdot = 240;
+                    break;
+            }
         }
 
         public double Update(Stage s)
