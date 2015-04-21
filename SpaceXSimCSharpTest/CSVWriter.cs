@@ -42,16 +42,17 @@ namespace SpaceXSimCSharpTest
             }
         }
 
-        public void StoreData(double timeStamp)
+        public void StoreData(double timeStamp, Flight_State s)
         {
             sb.Append(timeStamp + ",");
             sb.Append(data.Stage1.Oxygen.FilledVolume+",");
             sb.Append(data.Stage1.Kerosene.FilledVolume+",");
             sb.Append(data.Stage2.Oxygen.FilledVolume+",");
             sb.Append(data.Stage2.Kerosene.FilledVolume+",");
-            sb.Append(data.TotalMass() + ",");
+            sb.Append(data.CalculateMass() + ",");
             sb.Append(data.Stage1.TotalThrust() + ",");
-            sb.Append(data.Stage1.SingleThrust() + ",");
+            sb.Append(data.Stage2.TotalThrust() + ",");
+            sb.Append(data.CalculateAcceleration(s) + ",");
             sb.Append("\n");
             //Console.WriteLine("New Line Created");
             
@@ -68,8 +69,9 @@ namespace SpaceXSimCSharpTest
             sb.Append("stage 2 oxygen tank filled volume,");
             sb.Append("stage 2 kerosene tank filled volume,");
             sb.Append("total rocket mass,");
-            sb.Append("stage 1 total thrust");
-            sb.Append("merlin1DSl thrust,");
+            sb.Append("stage 1 total thrust,");
+            sb.Append("stage 2 total thrust,");
+            sb.Append("total acceleration,");
             sb.Append("\n");
             
         }

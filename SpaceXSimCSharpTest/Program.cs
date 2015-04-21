@@ -82,6 +82,10 @@ namespace SpaceXSimCSharpTest
                         
                         actions.Enqueue(rocket.Stage1.FireEngines);
 
+                        if((rocket.CalculateAcceleration(state)/9.8)>2)
+                        {
+                            rocket.Stage1.ChangeThrottle(-0.01);
+                        }
                         if(rocket.Stage1.Kerosene.FilledVolume<0||rocket.Stage1.Oxygen.FilledVolume<0)
                         {
                             state = Flight_State.Flight;
@@ -95,6 +99,10 @@ namespace SpaceXSimCSharpTest
                         #region Flight
 
                         actions.Enqueue(rocket.Stage2.FireEngines);
+                        if ((rocket.CalculateAcceleration(state) / 9.8) > 10)
+                        {
+                            rocket.Stage2.ChangeThrottle(-0.01);
+                        }
                         if (rocket.Stage2.Kerosene.FilledVolume < 0 || rocket.Stage2.Oxygen.FilledVolume < 0)
                         {
                             state = Flight_State.Flight;
@@ -139,7 +147,7 @@ namespace SpaceXSimCSharpTest
 
                 //threader.Update(actions);
                 threader.TaskMaker(actions);
-                fileWriter.StoreData(timePassed);
+                fileWriter.StoreData(timePassed, state);
 
                 #endregion
 

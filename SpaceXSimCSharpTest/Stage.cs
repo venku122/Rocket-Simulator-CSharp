@@ -162,6 +162,19 @@ namespace SpaceXSimCSharpTest
         {
             return engineStructure.merlinStack[1].Thrust;
         }
+
+        public double TotalMass()
+        {
+            return oxygen.Mass + kerosene.Mass + engineStructure.Mass;
+        }
+
+        public void ChangeThrottle(double v)
+        {
+            for (int i = 0; i < engineStructure.merlinStack.Length; i++)
+            {
+                engineStructure.merlinStack[i].ChangeThrottle(v);
+            }
+        }
         #endregion
     }
 }

@@ -114,9 +114,33 @@ namespace SpaceXSimCSharpTest
             */
         }
 
-        public double TotalMass()
+        public double CalculateMass()
         {
-            return stage1.Kerosene.Mass + stage1.Oxygen.Mass + stage2.Kerosene.Mass + stage2.Oxygen.Mass;
+            double massSum = 0;
+            massSum += stage1.TotalMass();
+            massSum += stage2.TotalMass();
+            return massSum;
+        }
+
+        public double CalculateAcceleration(Flight_State s)
+        {
+            switch(s)
+            {
+                case Flight_State.Launch:
+                    #region Launch
+
+                    return stage1.TotalThrust() / CalculateMass();
+                    #endregion
+                    break;
+                case Flight_State.Flight:
+                    #region Flight
+                    return stage2.TotalThrust()/CalculateMass();
+                    #endregion
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
         }
         #endregion
     }

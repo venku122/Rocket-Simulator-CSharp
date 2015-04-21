@@ -49,6 +49,9 @@ namespace SpaceXSimCSharpTest
             get { return throttle; }
             set { throttle = value; }
         }
+
+        public double Mass
+        { get { return mass; } }
         public double Thrust
         {
             get { 
@@ -100,7 +103,7 @@ namespace SpaceXSimCSharpTest
         }
         public void ChangeThrottle(double v)
         {
-            if (v <= .7)
+            if (throttle <= .7)
             {
                 throttle = .7;
             }
@@ -110,7 +113,7 @@ namespace SpaceXSimCSharpTest
             }
             else
             {
-                throttle = v;
+                throttle += v;
             }
         }
 
