@@ -8,14 +8,25 @@ namespace SpaceXSimCSharpTest
 {
     class OctoWeb
     {
+        #region Fields
+        //Holds all engines
         public Merlin[] merlinStack;
+        //Mass of the Structure
         private double mass;
+        #endregion
 
+        #region Properties
         public double Mass
         {
             get { return mass; }
         }
+        #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Creates the engines that the octoweb holds, depending on stage type, fills in with Sea Level or Vacuum type Merlin Engines
+        /// </summary>
+        /// <param name="type"></param>
         public OctoWeb(Stage_Type type)
         {
             switch(type)
@@ -39,8 +50,9 @@ namespace SpaceXSimCSharpTest
                     }
                     break;
             }
-            
+
         }
+        #endregion
 
     }
 }

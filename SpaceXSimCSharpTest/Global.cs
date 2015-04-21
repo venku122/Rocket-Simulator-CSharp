@@ -29,16 +29,40 @@ namespace SpaceXSimCSharpTest
     };
     #endregion
 
+    #region EngineTypeEnum
+    /// <summary>
+    /// Dictates the engine type and thus its performance characteristics
+    /// </summary>
+    
+    enum Engine_Type
+    {
+        SL,
+        Vac
+    }
+    #endregion
+
+    #region FuelTypeEnum
+    /// <summary>
+    /// Dictates what kind of fuel the tank holds
+    /// </summary>
+
+     enum Fuel_Type
+    {
+        RP1, LO2
+    }
+    #endregion
+
     public static class Global
     {
 
         #region FillRateConstants
-        public const double RADIUS = 1.83;
-        public const double RP1FillRate = 0.3333; //temporary
-        public const double LO2FillRate = 0.1667; //temporary
+        //The rate in which the tanks are filled, m^3 per second
+        public const double RP1FillRate = 0.3333; //temporary, much faster than real life in order to prevent graph skewing
+        public const double LO2FillRate = 0.1667; //temporary, much faster than real life in order to prevent graph skewing
         #endregion
-
+        
         #region FuelConstants
+        //Densities of the fuels used in the rocket
         public const double RP1DENSITY = 915;
         public const double LO2DENSITY = 1141;
 
@@ -48,6 +72,9 @@ namespace SpaceXSimCSharpTest
         #endregion
 
         #region Stage Tank Lengths
+        //Radius of the rocket
+        public const double RADIUS = 1.83;
+        //Statistics taken from spaceflightnow.com, does not account for engine length or structures
         public const double FIRSTSTAGELENGTH=37.3;
         public const double SECONDSTAGELENGTH=15;
 

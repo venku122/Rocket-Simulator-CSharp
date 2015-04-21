@@ -16,6 +16,9 @@ namespace SpaceXSimCSharpTest
             get { return name; }
         }
 
+        public double Mass
+        { get { return mass; } }
+
         public Payload(double m, String s)
         {
             mass = m;

@@ -9,17 +9,29 @@ namespace SpaceXSimCSharpTest
 {
     class CSVWriter
     {
-
+        #region Fields
+        //The Falcon 9 that is being recorded
         private Falcon9 data;
+        //holds all captured data before being dumped to fiel
         private StringBuilder sb;
+        #endregion
 
+        #region Constructor
         public CSVWriter(Falcon9 d)
         {
             data = d;
             sb = new StringBuilder();
             CSVHeaders();
         }
+        #endregion
 
+        #region Methods
+
+        #region CreateFile()
+        /// <summary>
+        /// Creates a file with the given path name and writes the stringbuilder to file
+        /// </summary>
+        /// <param name="filePath"></param>
         public void CreateFile(String filePath)
         {
             StreamWriter output = null;
@@ -41,7 +53,14 @@ namespace SpaceXSimCSharpTest
                 }
             }
         }
+        #endregion
 
+        #region StoreData()
+        /// <summary>
+        /// Called every loop, records the timestamp and records data about the rocket in a .csv format
+        /// </summary>
+        /// <param name="timeStamp">time action occurs</param>
+        /// <param name="s">current flight state of the rocket</param>
         public void StoreData(double timeStamp, Flight_State s)
         {
             sb.Append(timeStamp + ",");
@@ -49,18 +68,18 @@ namespace SpaceXSimCSharpTest
             sb.Append(data.Stage1.Kerosene.FilledVolume+",");
             sb.Append(data.Stage2.Oxygen.FilledVolume+",");
             sb.Append(data.Stage2.Kerosene.FilledVolume+",");
-            sb.Append(data.CalculateMass() + ",");
+            sb.Append(data.CalculateMass(s) + ",");
             sb.Append(data.Stage1.TotalThrust() + ",");
             sb.Append(data.Stage2.TotalThrust() + ",");
             sb.Append(data.CalculateAcceleration(s) + ",");
             sb.Append("\n");
-            //Console.WriteLine("New Line Created");
-            
-            
-
-
         }
+        #endregion
 
+        #region CSVHeaders()
+        /// <summary>
+        /// Creates the column headers for the CSV file
+        /// </summary>
         public void CSVHeaders()
         {
             sb.Append("elapsed time,");
@@ -75,10 +94,15 @@ namespace SpaceXSimCSharpTest
             sb.Append("\n");
             
         }
+        #endregion
 
+        #region AppendSingle()
+        //Allows the creation of a single data entry in that row, for debugging purposes
         public void AppendSingle(String s)
         {
             sb.Append(s + ",");
         }
+        #endregion
+        #endregion
     }
 }

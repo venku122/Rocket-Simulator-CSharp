@@ -6,17 +6,10 @@ using System.Threading.Tasks;
 
 namespace SpaceXSimCSharpTest
 {
-    #region FuelTypeEnum
-    public enum Fuel_Type
-    {
-        RP1, LO2
-    };
-    #endregion
+
 
     class Tank
     {
-
-
 
         #region Fields
         double length;
@@ -45,6 +38,12 @@ namespace SpaceXSimCSharpTest
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Creates a tank holding the specified fuel type with a cylindrical volume defined by the given parameters
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="r"></param>
+        /// <param name="ft"></param>
         public Tank(double l, double r, Fuel_Type ft)
         {
             length = l;
@@ -52,11 +51,13 @@ namespace SpaceXSimCSharpTest
             //V=πr2h
             maxVolume = Math.PI * (radius * radius) * length;
             type = ft;
+            //Tankage mass is an underestimate, not dependent on tank size either
             mass += 100;
         }
         #endregion
 
         #region Methods
+        #region Fill()
         /// <summary>
         /// Fills the fuel tank with fuel
         /// </summary>
@@ -79,12 +80,14 @@ namespace SpaceXSimCSharpTest
             }
             //Debug Print statement
             //Console.WriteLine("Filled Volume: " + String.Format("{0:0.000}", filledVolume) + " Max Volume: " + String.Format("{0:0.000}", MaxVolume) + " Mass: " + String.Format("{0:0.000}", mass) + (" ")+type.ToString());
-            Console.WriteLine("Filled Volume: " + Math.Round(filledVolume, 3) + " Max Volume: " + Math.Round(MaxVolume, 3) + " Mass: " + Math.Round(mass, 3) + (" ") + type.ToString());
+            //Console.WriteLine("Filled Volume: " + Math.Round(filledVolume, 3) + " Max Volume: " + Math.Round(MaxVolume, 3) + " Mass: " + Math.Round(mass, 3) + (" ") + type.ToString());
 
             //Updates the mass of the tank
             Update();
-
         }
+        #endregion
+
+        #region Update()
         /// <summary>
         /// Based on fuel type, Updates the tank mass based on density and fuel amount
         /// </summary>
@@ -100,13 +103,26 @@ namespace SpaceXSimCSharpTest
                     break;
             }
         }
+        #endregion
 
+        #region IsFull()
+        /// <summary>
+        /// Returns whether the tank is full or not
+        /// </summary>
+        /// <returns></returns>
         public bool IsFull()
         {
             return (filledVolume == maxVolume);
 
         }
+        #endregion
 
+        #region Empty()
+        /// <summary>
+        /// Removes a specified volumne of fuel from the tank and updates the tank mass
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public double Empty(double v)
         {
             filledVolume -= v;
@@ -124,6 +140,7 @@ namespace SpaceXSimCSharpTest
                     break;
             }
         }
+        #endregion
         #endregion
     }
 }

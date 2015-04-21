@@ -11,14 +11,16 @@ namespace SpaceXSimCSharpTest
     class Stage
     {
         #region Fields
-        Tank kerosene;
-        Tank oxygen;
+        //Bipropellant tanks
+        private Tank kerosene;
+        private Tank oxygen;
+        //Holds the various control inputs of the rocket, not implemented
         ControlSystem[] stageControl;
+        //Determines stage characteristics
         Stage_Type type;
+        //Holds the engines of the stage
         OctoWeb engineStructure;
         #endregion
-
-
 
         #region Properties
         public Tank Kerosene

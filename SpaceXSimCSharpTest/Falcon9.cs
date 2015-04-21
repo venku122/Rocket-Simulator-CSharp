@@ -77,6 +77,8 @@ namespace SpaceXSimCSharpTest
         #endregion
 
         #region Methods
+
+        #region LoadPayload()
         /// <summary>
         /// Loads a payload onto the rocket
         /// </summary>
@@ -93,7 +95,9 @@ namespace SpaceXSimCSharpTest
                 Console.WriteLine("Payload already loaded. Load command failed");
             }
         }
+        #endregion
 
+        #region UnloadPayload()
         /// <summary>
         /// Removes the current payload from the rocket
         /// </summary>
@@ -102,26 +106,43 @@ namespace SpaceXSimCSharpTest
             Console.WriteLine(missionPayload.Name + " has been unloaded from " + this.name);
             missionPayload = null;
         }
+        #endregion
 
+        #region CalculateMass()
         /// <summary>
-        /// Fills the tanks on the Falcon 9 until full
+        /// Calls both stages TotalMass() to calculate the total mass of the whole vehicle
         /// </summary>
-        public void FillTanks()
-        {
-            /*
-            stage1.FillThreaded();
-            stage2.FillThreaded();
-            */
-        }
-
-        public double CalculateMass()
+        /// <returns></returns>
+        public double CalculateMass(Flight_State s)
         {
             double massSum = 0;
+            switch(s)
+            {
+                case Flight_State.Launch:
+                    massSum += stage1.TotalMass();
+                    massSum += stage2.TotalMass();
+                    massSum += missionPayload.Mass;
+                        return massSum;
+                    break;
+                case Flight_State.Flight:
+                     massSum += stage2.TotalMass();
+                     massSum += missionPayload.Mass;
+                     return massSum;
+                    break;
+            }
             massSum += stage1.TotalMass();
             massSum += stage2.TotalMass();
+            massSum += missionPayload.Mass;
             return massSum;
         }
+        #endregion
 
+        #region CalculateAcceleration()
+        /// <summary>
+        /// Takes the total thrust of the rocket and finds the acceleration the rocket undergoes
+        /// </summary>
+        /// <param name="s">Allows for just the engines that are firing to be included in the calculation</param>
+        /// <returns></returns>
         public double CalculateAcceleration(Flight_State s)
         {
             switch(s)
@@ -129,12 +150,12 @@ namespace SpaceXSimCSharpTest
                 case Flight_State.Launch:
                     #region Launch
 
-                    return stage1.TotalThrust() / CalculateMass();
+                    return stage1.TotalThrust() / CalculateMass(s);
                     #endregion
                     break;
                 case Flight_State.Flight:
                     #region Flight
-                    return stage2.TotalThrust()/CalculateMass();
+                    return stage2.TotalThrust()/CalculateMass(s);
                     #endregion
                     break;
                 default:
@@ -142,6 +163,7 @@ namespace SpaceXSimCSharpTest
                     break;
             }
         }
+        #endregion
         #endregion
     }
 }

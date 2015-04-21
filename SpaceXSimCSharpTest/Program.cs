@@ -20,7 +20,6 @@ namespace SpaceXSimCSharpTest
             Falcon9 rocket = null;
             CSVWriter fileWriter = null;
             
-
             #region Threading
             
             Queue<TaskList> actions = new Queue<TaskList>();
@@ -28,12 +27,12 @@ namespace SpaceXSimCSharpTest
 
             #endregion
 
-
-
             double timePassed = 0;
 
+            #region Simulation Loop
             while (run)
             {
+                //records the time passed per loop
                 timePassed += Global.TIMESTEP;
                 
                 switch(state)
@@ -42,7 +41,7 @@ namespace SpaceXSimCSharpTest
                         #region Initialization
                         rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
                         fileWriter = new CSVWriter(rocket);
-                        rocket.LoadPayload(new Payload(10, "Mass Simulator"));
+                        rocket.LoadPayload(new Payload(5000, "Mass Simulator"));
                         Console.WriteLine("stage 1 mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass)));
                         Console.WriteLine("stage 2 mass: " + String.Format("{0:0.000}", (rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
                         //Console.WriteLine("total mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
@@ -152,6 +151,7 @@ namespace SpaceXSimCSharpTest
                 #endregion
 
             }
+            #endregion
         }      
     }
 }
