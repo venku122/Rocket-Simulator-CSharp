@@ -38,11 +38,9 @@ namespace SpaceXSimCSharpTest
         public const double LO2FillRate = 0.1667; //temporary
         #endregion
 
-        #region FuelConstants
+        #region FuelDensityConstants
         public const double RP1DENSITY = 915;
         public const double LO2DENSITY = 1141;
-        public const double FIRSTSTAGEFUELRATIO = 1.87;
-        public const double SECONDSTAGEFUELRATIO = 2.36;
         #endregion
 
         #region Simulation
