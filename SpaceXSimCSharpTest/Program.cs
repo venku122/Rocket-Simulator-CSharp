@@ -113,7 +113,7 @@ namespace SpaceXSimCSharpTest
                         if (rocket.Stage2.Kerosene.FilledVolume < 0 || rocket.Stage2.Oxygen.FilledVolume < 0)
                         {
                             state = Flight_State.Flight;
-                            fileWriter.CreateFile("rocketSimData.csv");
+                            fileWriter.CreateFile();
                             Console.WriteLine("Secondary Engine Cut Off at t+" + String.Format("{0:0.000}", timePassed) + " seconds");
                             fileWriter.AppendSingle("SECO");
                            

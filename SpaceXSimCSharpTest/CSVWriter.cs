@@ -32,13 +32,19 @@ namespace SpaceXSimCSharpTest
         /// Creates a file with the given path name and writes the stringbuilder to file
         /// </summary>
         /// <param name="filePath"></param>
-        public void CreateFile(String filePath)
+        public void CreateFile()
         {
             StreamWriter output = null;
-
+            string input = null;
+            Console.Write("Please enter a file name: ");
+            input = Console.ReadLine();
+            if(input==null)
+            {
+                throw new Exception();
+            }
             try
             {
-                output = new StreamWriter(filePath);
+                output = new StreamWriter(input + ".csv");
                 output.Write(sb);
             }
             catch(Exception e)
