@@ -51,6 +51,7 @@ namespace SpaceXSimCSharpTest
             sb.Append(data.Stage2.Kerosene.FilledVolume+",");
             sb.Append(data.TotalMass() + ",");
             sb.Append(data.Stage1.TotalThrust() + ",");
+            sb.Append(data.Stage1.SingleThrust() + ",");
             sb.Append("\n");
             //Console.WriteLine("New Line Created");
             
@@ -68,6 +69,7 @@ namespace SpaceXSimCSharpTest
             sb.Append("stage 2 kerosene tank filled volume,");
             sb.Append("total rocket mass,");
             sb.Append("stage 1 total thrust");
+            sb.Append("merlin1DSl thrust,");
             sb.Append("\n");
             
         }
