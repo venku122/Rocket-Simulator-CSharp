@@ -69,7 +69,7 @@ namespace SpaceXSimCSharpTest
                         {
                             
                             Console.WriteLine("Rocket is fully fueled");
-                            fileWriter.AppendSingle("Fully Fueled");
+                            //fileWriter.AppendSingle("Fully Fueled");
                             for (int i = 10; i > 0;i-- )
                             {
                                 Console.WriteLine(i);
@@ -95,7 +95,7 @@ namespace SpaceXSimCSharpTest
                         {
                             state = Flight_State.Flight;
                             Console.WriteLine("Main Engine Cut Off at t+" + String.Format("{0:0.000}", timePassed) + " seconds");
-                            fileWriter.AppendSingle("MECO");
+                            //fileWriter.AppendSingle("MECO");
                             //fileWriter.CreateFile("rocketSimData.csv");
                             //run = false; 
                         }
@@ -113,9 +113,10 @@ namespace SpaceXSimCSharpTest
                         if (rocket.Stage2.Kerosene.FilledVolume < 0 || rocket.Stage2.Oxygen.FilledVolume < 0)
                         {
                             state = Flight_State.Flight;
-                            fileWriter.CreateFile();
+                            
                             Console.WriteLine("Secondary Engine Cut Off at t+" + String.Format("{0:0.000}", timePassed) + " seconds");
-                            fileWriter.AppendSingle("SECO");
+                            fileWriter.CreateFile();
+                            //fileWriter.AppendSingle("SECO");
                            
                             run = false;
                         }
