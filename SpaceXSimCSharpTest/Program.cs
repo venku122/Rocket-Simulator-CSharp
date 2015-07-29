@@ -48,6 +48,7 @@ namespace SpaceXSimCSharpTest
                         Console.WriteLine("total mass: " + Math.Round((rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass + rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass), 3));
                         //fileWriter.StoreData(timePassed);
                         state = Flight_State.Prelaunch;
+                        fileWriter.CreateFile();
                         Console.WriteLine("Done with initialization");
                         #endregion
 
@@ -115,9 +116,8 @@ namespace SpaceXSimCSharpTest
                             state = Flight_State.Flight;
                             
                             Console.WriteLine("Secondary Engine Cut Off at t+" + String.Format("{0:0.000}", timePassed) + " seconds");
-                            fileWriter.CreateFile();
-                            //fileWriter.AppendSingle("SECO");
-                           
+
+                            fileWriter.CloseFile();
                             run = false;
                         }
                         #endregion

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -75,9 +77,9 @@ namespace SpaceXSimCSharpTest
         //Radius of the rocket
         public const double RADIUS = 1.83;
         //Statistics taken from spaceflightnow.com, does not account for engine length or structures
-        public const double FIRSTSTAGELENGTH=37.3;
-        public const double SECONDSTAGELENGTH=15;
-
+        public const double FIRSTSTAGELENGTH = 37.3;
+        public const double SECONDSTAGELENGTH = 15;
+        
         //equals total length/(1 + FIRSTSTAGEFUELRATIO)
         public const double FIRSTSTAGELENGTHRP1= FIRSTSTAGELENGTH/(1+FIRSTSTAGEFUELRATIO);
         //equals total length-FIRSTSTAGELENGTHRP1

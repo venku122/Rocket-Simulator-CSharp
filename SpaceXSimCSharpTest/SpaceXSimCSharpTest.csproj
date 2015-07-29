@@ -41,26 +41,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlSystem.cs" />
-    <Compile Include="CSVWriter.cs" />
-    <Compile Include="Falcon9.cs" />
-    <Compile Include="Merlin.cs" />
-    <Compile Include="Merlin1DSL.cs" />
-    <Compile Include="Merlin1DVac.cs" />
-    <Compile Include="OctoWeb.cs" />
-    <Compile Include="Payload.cs" />
+    <Compile Include="Falcon Objects\Stages\ControlSystem.cs" />
+    <Compile Include="Utilities\CSVWriter.cs" />
+    <Compile Include="Falcon Objects\Falcon9.cs" />
+    <Compile Include="Falcon Objects\Engines\Merlin.cs" />
+    <Compile Include="Falcon Objects\Engines\Merlin1DSL.cs" />
+    <Compile Include="Falcon Objects\Engines\Merlin1DVac.cs" />
+    <Compile Include="Falcon Objects\Stages\OctoWeb.cs" />
+    <Compile Include="Falcon Objects\Payload.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Global.cs" />
-    <Compile Include="Stage.cs" />
-    <Compile Include="Tank.cs" />
-    <Compile Include="ThreadManager.cs" />
+    <Compile Include="Utilities\Global.cs" />
+    <Compile Include="Falcon Objects\Stages\Stage.cs" />
+    <Compile Include="Falcon Objects\Stages\Tank.cs" />
+    <Compile Include="Utilities\ThreadManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TextFile1.txt" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,6 +14,8 @@ namespace SpaceXSimCSharpTest
         private Falcon9 data;
         //holds all captured data before being dumped to fiel
         private StringBuilder sb;
+        //FileIOStream
+        private StreamWriter output;
         #endregion
 
         #region Constructor
@@ -34,7 +36,7 @@ namespace SpaceXSimCSharpTest
         /// <param name="filePath"></param>
         public void CreateFile()
         {
-            StreamWriter output = null;
+            output = null;
             string input = null;
             Console.Write("Please enter a file name: ");
             input = Console.ReadLine();
@@ -50,13 +52,6 @@ namespace SpaceXSimCSharpTest
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                if(output!= null)
-                {
-                    output.Close();
-                }
             }
         }
         #endregion
@@ -79,6 +74,10 @@ namespace SpaceXSimCSharpTest
             sb.Append(data.Stage2.TotalThrust() + ",");
             sb.Append(data.CalculateAcceleration(s) + ",");
             sb.Append("\n");
+            if(sb.Length>100000)
+            {
+                WriteFile();
+            }
         }
         #endregion
 
@@ -99,6 +98,18 @@ namespace SpaceXSimCSharpTest
             sb.Append("total acceleration,");
             sb.Append("\n");
             
+        }
+        public void WriteFile()
+        {
+            output.Write(sb);
+            sb.Clear();
+        }
+        public void CloseFile()
+        {
+            if (output != null)
+            {
+                output.Close();
+            }
         }
         #endregion
 
