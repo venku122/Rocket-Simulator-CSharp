@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceXSimCSharpTest.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace SpaceXSimCSharpTest
         {
             bool run = true;
             Flight_State state=Flight_State.Initialize;
+  
 
             Falcon9 rocket = null;
             CSVWriter fileWriter = null;
-            
+
+            FlightSystem fs = null;
             #region Threading
-            
+
             Queue<TaskList> actions = new Queue<TaskList>();
             ThreadManager threader = new ThreadManager();
 
@@ -41,6 +44,7 @@ namespace SpaceXSimCSharpTest
                         #region Initialization
                         rocket = new Falcon9("Falcon 9 1.1", "Test Rocket");
                         fileWriter = new CSVWriter(rocket);
+                        fs = new FlightSystem(rocket, state);
                         rocket.LoadPayload(new Payload(5000, "Mass Simulator"));
                         Console.WriteLine("stage 1 mass: " + String.Format("{0:0.000}", (rocket.Stage1.Kerosene.Mass + rocket.Stage1.Oxygen.Mass)));
                         Console.WriteLine("stage 2 mass: " + String.Format("{0:0.000}", (rocket.Stage2.Kerosene.Mass + rocket.Stage2.Oxygen.Mass)));
@@ -100,6 +104,8 @@ namespace SpaceXSimCSharpTest
                             //fileWriter.CreateFile("rocketSimData.csv");
                             //run = false; 
                         }
+                        fs.Update(state);
+                        
                        
                         #endregion
                         break;
@@ -119,6 +125,7 @@ namespace SpaceXSimCSharpTest
 
                             fileWriter.CloseFile();
                             run = false;
+                            Console.ReadLine();
                         }
                         #endregion
                         break;

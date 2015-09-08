@@ -51,6 +51,7 @@
     <Compile Include="Falcon Objects\Payload.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\FlightSystem.cs" />
     <Compile Include="Utilities\Global.cs" />
     <Compile Include="Falcon Objects\Stages\Stage.cs" />
     <Compile Include="Falcon Objects\Stages\Tank.cs" />
