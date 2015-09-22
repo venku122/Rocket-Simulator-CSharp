@@ -127,6 +127,8 @@ namespace SpaceXSimCSharpTest
                             run = false;
                             Console.ReadLine();
                         }
+                        fs.Update(state);
+
                         #endregion
                         break;
                 }

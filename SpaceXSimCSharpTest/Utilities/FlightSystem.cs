@@ -71,18 +71,18 @@ namespace SpaceXSimCSharpTest.Utilities
 
         private void UpdatePosition()
         {
-            xPos += xVelocity;
-            yPos += yVelocity;
+            xPos += xVelocity * Global.TIMESTEP;
+            yPos += yVelocity * Global.TIMESTEP;
         }
 
         private void UpdateVelocity()
         {
             //xVelocity = (-Global.GRAVITY) + (thrust/mIst);
-            yVelocity = vehicle.CalculateAcceleration(state)*Global.TIMESTEP;
+            yVelocity += vehicle.CalculateAcceleration(state)*Global.TIMESTEP;
         }
         private void UpdateSpeed()
         {
-            speed = Math.Pow(xVelocity, 2) + Math.Pow(yVelocity, 2);
+            speed = Math.Pow(Math.Pow(xVelocity, 2) + Math.Pow(yVelocity, 2), 1/2);
     
         }
         private void UpdateVehicleStats()
